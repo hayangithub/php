@@ -1,0 +1,174 @@
+// day between 2 dates
+$startDate = new DateTime('2016-07-15');
+$endDate = new DateTime('2016-07-17');
+
+$sundays = array();
+
+while ($startDate <= $endDate) {
+    if ($startDate->format('w') == 0) {
+        $sundays[] = $startDate->format('Y-m-d');
+    }
+
+    $startDate->modify('+1 day');
+}
+
+var_dump($sundays);
+
+
+
+
+// datalable call back
+ drawCallback: function (settings) {
+                //  $('.paginate_button.next:not(.disabled), .paginate_button, select[name=datatable-responsive1_length]', this.api().table().container())
+                //        .on('click', function () {
+                var status = checkUserSessionData();
+                if (status === "0004") {
+                    sessionStatus = false;
+                }
+                // });
+            },
+
+
+
+ // Book
+<?php if (in_array("AD", $userData['roles']) || in_array("MA", $userData['roles'])) { ?>
+                                                        <th>Option</th>
+                                                    <?php } ?>
+
+
+
+
+function searchRoomDone1() {
+                                var chblock_search = $('#chblock_search').val();
+                                var vchroomtype_search = $('#vchroomtype_search').val();
+                                var vchroomno_search = $('#vchroomno_search').val();
+                                $.ajax({
+                                    url: '<?php echo base_url() ?>rooms/searchrooms',
+                                    type: 'POST',
+                                    data: {'vchroomno_search': vchroomno_search, 'chblock_search': chblock_search, 'vchroomtype_search': vchroomtype_search},
+                                    beforeSend: function () {
+                                        $(".loading").removeClass('hidden');
+                                        $(".loading").addClass('show');
+                                    },
+                                    success: function (data) {
+                                        data = $.parseJSON(data);
+                                        // arrangeDataTable(data['rooms_list']);
+                                        //  arrangeData();
+                                    },
+                                    error: function (xhr) { // if error occured
+                                        alert("Error occured.please try again");
+                                    },
+                                    complete: function () {
+                                        $(".loading").removeClass('show');
+                                        $(".loading").addClass('hidden');
+                                    }
+                                });
+                            }
+
+User.php
+   <?php foreach ($users as $row) { ?>
+                                                    <tr>
+                                                        <td><?php echo $row['vchfirstname'] . ' ' . $row['vchlastname']; ?></td>
+                                                        <td><?php echo $row['chdepartment']; ?></td>
+                                                        <td><?php echo $row['vchemail']; ?></td>
+                                                        <td><?php echo $row['vchphoneno']; ?></td>
+                                                        <td><?php echo $row['vchext']; ?></td>
+                                                        <td>     
+                                                            <?php
+                                                            $roles = explode(",", $row['privilage_desc']);
+                                                            foreach ($roles as $role) {
+                                                                echo $role . " <br />";
+                                                            }
+                                                            ?>
+                                                        </td>      
+                                                        <td> <span class="label label-with-highlight 
+                                                            <?php if ($row['chstatus'] == "Active") { ?>
+                                                                       label-with-highlight-success"><?php echo $row['chstatus']; ?></span> </td>      
+                                                                   <?php } else { ?>
+                                                            label-danger"><?php echo $row['chstatus']; ?></span> </td>      
+                                                        <?php } ?> 
+
+                                                        <td style="text-align:center;">
+                                                            <a href="#" onclick="edit_room('<?php echo $row['intuserid']; ?>');" class="btn-edit-in-table"> <i class="glyphicon glyphicon-pencil"></i> 
+                                                                Edit
+                                                            </a>                                                                                                                 
+                                                        </td>
+                                                    </tr>
+                                                <?php } ?>
+
+
+
+Search Panel User List Page
+   <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="panel-title">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                    Search Panel           	</div>
+                            </div>
+                            <div class="panel-body">
+                                <form action="">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <div class="form-group">
+                                                <label>Name</label>
+                                                <input type="text" class="form-control" id="vchroomno_search" name="name_search" autocomplete="off">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Department</label>
+                                                <select class="form-control" name="vchroomtype_search" id="vchroomtype_search">
+                                                    <option value="all">All Types</option>
+                                                    <?php foreach ($roomtypes as $row) { ?>
+                                                        <option value="<?php echo $row['vchparamcode']; ?>"><?php echo $row['vchparamdesc']; ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label> Room/ Hall/ Lab No </label>
+                                                <small class="req">*</small> 
+                                                <select class="selectpicker form-control" id="vchroomno" name="vchroomno" style="width:100%" multiple data-max-options="5" data-live-search="true">
+                                                    <?php foreach ($blocks as $block) { ?> 
+                                                        <optgroup label="<?php echo $block['vchparamdesc']; ?>">
+                                                            <?php
+                                                            foreach ($rooms as $room) {
+                                                                if ($block['vchparamcode'] == $room['chblock']) {
+                                                                    ?>
+                                                                    <option value="<?php echo $room['vchroomno']; ?>"><?php echo $room['vchroomno']; ?></option>
+                                                                    <?php
+                                                                }
+                                                            }
+                                                        }
+                                                        ?> 
+                                                </select>
+                                                <span class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <div class="form-group">
+                                                <label>Email</label>
+                                                <input type="text" class="form-control" id="vchroomno_search" name="vchroomno_search" autocomplete="off">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>Status</label>
+                                                <select class="form-control" name="vchroomtype_search" id="vchroomtype_search">
+                                                    <option value="all">All Types</option>
+                                                    <?php foreach ($roomtypes as $row) { ?>
+                                                        <option value="<?php echo $row['vchparamcode']; ?>"><?php echo $row['vchparamdesc']; ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <button type="button" onclick="searchRoomDone();" class="btn btn-round btn-grey"> <i class="glyphicon glyphicon-search"></i> Search</button>
+                                            <button type="button" class="btn btn-round btn-success" data-toggle="modal" data-target=".editmodal"><i class="glyphicon glyphicon-plus"></i> Add</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
